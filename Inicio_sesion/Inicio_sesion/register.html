@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="images/x-icon">
+    <title>Registro</title>
+    <link rel="stylesheet" type="text/css" href="styles_register.css"> <!-- Enlaza el archivo CSS para estilos personalizados -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Enlaza el archivo CSS de Font Awesome para iconos -->
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">Registrarse</h2>
+            <!-- Formulario de registro con método POST y acción '/register'. Se llama a la función 'validateForm()' al enviar el formulario -->
+            <form id="register-form" action="/register" method="post" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico :</label>
+                    <input type="email" name="email" class="form-input" id="email"> <!-- Campo de entrada para el correo electrónico -->
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-user"></i> Nombre de usuario :</label>
+                    <input type="text" name="username" class="form-input"> <!-- Campo de entrada para el nombre de usuario -->
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-lock"></i> Contraseña :</label>
+                    <input type="password" name="password" class="form-input"> <!-- Campo de entrada para la contraseña -->
+                </div>
+                <input type="submit" value="Registrarse" class="submit-btn"> <!-- Botón de envío del formulario -->
+            </form>
+            <!-- Mensaje de error para campos vacíos, oculto por defecto -->
+            <p id="error-message" style="color: red; display: none;">Por favor complete todos los campos</p><br>
+            <!-- Enlace para iniciar sesión si ya tienes una cuenta -->
+            ¿Ya tienes una cuenta? <a href="login.html">Inicia Sesión  <i class="fas fa-user-plus" ></i></a>
+        </div>
+    </div>
+
+    <script>
+        // Función para validar el formulario antes de enviarlo
+        function validateForm() {
+            var email = document.getElementsByName("email")[0].value;
+            var username = document.getElementsByName("username")[0].value;
+            var password = document.getElementsByName("password")[0].value;
+
+            console.log("Email:", email);
+            console.log("Username:", username);
+            console.log("Password:", password);
+
+            if (email === "" || username === "" || password === "") {
+                // Muestra el mensaje de error si algún campo está vacío
+                document.getElementById("error-message").style.display = "block";
+                return false;
+            } else {
+                // Oculta el mensaje de error si todos los campos están completos
+                document.getElementById("error-message").style.display = "none";
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

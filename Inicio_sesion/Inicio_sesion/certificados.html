@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="image/x-icon">
+    <title>Generar Certificados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="certificados.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="pagina.html">Inicio</a>
+        <a href="cargarDatos.html">Cargar Datos</a>
+        <a href="/logout" class="logout-link">Cerrar Sesión</a>
+    </div>
+
+    <div class="header">
+        <h1>Generar Certificados</h1>
+    </div>
+    <div class="container">
+        <section class="certificate-section">
+            <h2>Certificados</h2>
+            <div class="certificates-list">
+                <div class="certificate-option">
+                    <h3>Certificado de Conducta</h3>
+                    <button class="generate-button" data-type="certificado-conducta">Generar</button>
+                </div>
+                <div class="certificate-option">
+                    <h3>Certificado de Prácticas</h3>
+                    <button class="generate-button" data-type="certificado-practicas">Generar</button>
+                </div>
+                <div class="certificate-option">
+                    <h3>Certificado de Matrícula</h3>
+                    <button class="generate-button" data-type="certificado-matricula">Generar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h2>Informes</h2>
+            <div class="reports-action">
+                <button class="add-report-button">Añadir Informe</button>
+            </div>
+        </section>
+    </div>
+    <script src="certificados.js"></script>
+</body>
+</html>
+

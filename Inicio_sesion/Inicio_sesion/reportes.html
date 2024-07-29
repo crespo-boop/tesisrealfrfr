@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="image/x-icon">
+    <title>Generar Reportes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/reportes.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="pagina.html">Inicio</a>
+        <a href="cargarDatos.html">Cargar Datos</a>
+        <a href="/logout" class="logout-link">Cerrar Sesión</a>
+    </div>
+
+    <div class="header">
+        <h1>Generar Reportes</h1>
+        <button id="add-report-button" class="add-report-button"><i class="fas fa-plus"></i> Agregar Reporte</button>
+    </div>
+    <div class="container">
+        <div class="reports-list">
+            <div class="report-option">
+                <h3>Informe General</h3>
+                <button class="generate-button" data-type="informe-general">Generar</button>
+            </div>
+            <div class="report-option">
+                <h3>Reporte de Conducta</h3>
+                <button class="generate-button" data-type="reporte-conducta">Generar</button>
+            </div>
+            <!-- Añade más opciones de reportes si es necesario -->
+        </div>
+    </div>
+
+    <!-- Ventana emergente -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close-button">&times;</span>
+            <h2>Agregar Nuevo Reporte</h2>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo"><br><br>
+            <label for="fecha">Fecha de Emisión:</label>
+            <input type="date" id="fecha" name="fecha"><br><br>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion"><br><br>
+            <button id="accept-button">Aceptar</button>
+            <button id="cancel-button">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="reportes.js"></script>
+</body>
+</html>
+

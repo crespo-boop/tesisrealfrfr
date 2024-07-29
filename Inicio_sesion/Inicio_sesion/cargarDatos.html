@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="image/x-icon">
+    <title>Cargar Datos</title>
+    <link rel="stylesheet" href="cargarDatos.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <a href="/pagina.html">Inicio</a>
+        <a href="/cargarDatos.html">Cargar Datos</a>
+        <a href="/logout" class="logout-link">Cerrar Sesión</a>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Encabezado principal -->
+        <div class="header">
+            <h1>Cargar Datos</h1>
+        </div>
+
+        <!-- Contenedor de secciones -->
+        <div class="sections-container">
+            <!-- Sección Datos de Estudiantes -->
+            <div class="form-container">
+                <h2>Datos de Estudiantes</h2>
+                <form id="student-form">
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" id="nombres" name="nombres" required><br><br>
+                    
+                    <label for="cedula">Cédula:</label>
+                    <input type="text" id="cedula" name="cedula" required><br><br>
+                    
+                    <label for="carrera">Carrera:</label>   
+                    <input type="text" id="carrera" name="carrera" required><br><br>
+                    
+                    <label for="email">Email:</label>   
+                    <input type="email" id="email" name="email" required><br><br>
+                    
+                    <label for="semestre">Semestre:</label>   
+                    <input type="text" id="semestre" name="semestre" required><br><br>
+                    
+                    <label for="codigo-matricula">Código de Matrícula:</label>
+                    <input type="text" id="codigo-matricula" name="codigo-matricula" required><br><br>
+                    
+                    <label for="periodo">Período:</label>
+                    <select id="periodo" name="periodo" required>
+                        <!-- Las opciones se cargarán mediante JavaScript -->
+                    </select><br><br>
+                    
+                    <button type="button" onclick="guardarEstudiante()">Guardar</button>
+                </form>
+            </div>
+
+            <!-- Sección Cargar Datos Masivos -->
+            <div class="bulk-upload-section">
+                <h2>Cargar Datos Masivos</h2>
+                <button type="button" onclick="document.getElementById('file-input').click()">Agregar Datos Masivos de Estudiantes</button>
+                <button type="button" onclick="cargamasivaPractica()">Agregar Datos Masivos de Práctica</button>
+                <button type="button" onclick="openAddPeriodModal()">Agregar Período</button>
+                
+                <input type="file" id="file-input" name="file" accept=".xlsx, .xls" style="display: none;" onchange="cargamasiva()">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ventana emergente para agregar período -->
+    <div id="add-period-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddPeriodModal()">&times;</span>
+            <h2>Agregar Período</h2>
+            <form id="add-period-form">
+                <label for="nuevo-periodo-nombre">Nombre del Período:</label>
+                <input type="text" id="nuevo-periodo-nombre" name="nombre" required><br><br>
+                
+                <label for="nuevo-periodo-fecha-inicio">Fecha de Inicio:</label>
+                <input type="date" id="nuevo-periodo-fecha-inicio" name="fechaInicio" required><br><br>
+                
+                <label for="nuevo-periodo-fecha-fin">Fecha de Fin:</label>
+                <input type="date" id="nuevo-periodo-fecha-fin" name="fechaFin" required><br><br>
+                
+                <button type="button" onclick="guardarPeriodo()">Guardar Período</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir la ventana emergente para agregar período
+        function openAddPeriodModal() {
+            document.getElementById('add-period-modal').style.display = 'block';
+        }
+
+        // Función para cerrar la ventana emergente
+        function closeAddPeriodModal() {
+            document.getElementById('add-period-modal').style.display = 'none';
+        }
+
+        // Función para guardar el nuevo período
+        function guardarPeriodo() {
+            var nombre = document.getElementById('nuevo-periodo-nombre').value;
+            var fechaInicio = document.getElementById('nuevo-periodo-fecha-inicio').value;
+            var fechaFin = document.getElementById('nuevo-periodo-fecha-fin').value;
+
+            fetch('/agregar-periodo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre, fechaInicio, fechaFin })
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                closeAddPeriodModal(); // Cerrar la ventana emergente
+                // Volver a cargar los períodos en el desplegable
+                fetch('/get-periodos')
+                    .then(response => response.json())
+                    .then(data => {
+                        var periodoSelect = document.getElementById('periodo');
+                        periodoSelect.innerHTML = ''; // Limpiar opciones existentes
+                        data.forEach(periodo => {
+                            var option = document.createElement('option');
+                            option.value = periodo.id; // O el valor adecuado para el período
+                            option.textContent = periodo.nombre; // O el nombre adecuado para el período
+                            periodoSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar los períodos:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error al guardar el período:', error);
+                alert('Hubo un error al guardar el período');
+            });
+        }
+
+        // Inicializar el formulario con períodos al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar períodos al inicio
+            fetch('/get-periodos')
+                .then(response => response.json())
+                .then(data => {
+                    var periodoSelect = document.getElementById('periodo');
+                    periodoSelect.innerHTML = ''; // Limpiar opciones existentes
+                    data.forEach(periodo => {
+                        var option = document.createElement('option');
+                        option.value = periodo.id; // O el valor adecuado para el período
+                        option.textContent = periodo.nombre; // O el nombre adecuado para el período
+                        periodoSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los períodos:', error);
+                });
+        });
+    </script>
+</body>
+</html>

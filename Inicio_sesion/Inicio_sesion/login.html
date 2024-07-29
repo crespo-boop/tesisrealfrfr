@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="images/x-icon">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" type="text/css" href="styles_login.css"> <!-- Enlaza el archivo CSS para estilos personalizados -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Enlaza el archivo CSS de Font Awesome para iconos -->
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Iniciar Sesión</h2>
+            <!-- Formulario de inicio de sesión con método POST y acción '/login'. Se llama a la función 'validateForm()' al enviar el formulario -->
+            <form action="/login" method="post" onsubmit="return validateForm()">
+                <label for="username"><i class="fas fa-user"></i> Nombre de usuario :</label>
+                <input type="text" id="username" name="username"> <!-- Campo de entrada para el nombre de usuario -->
+                <label for="password"><i class="fas fa-lock"></i> Contraseña :</label>
+                <input type="password" id="password" name="password"> <!-- Campo de entrada para la contraseña -->
+                <input type="submit" value="Iniciar Sesión"> <!-- Botón de envío del formulario -->
+            </form>
+            <!-- Mensaje de error para campos vacíos, oculto por defecto -->
+            <p id="error-message" style="color: red; display: none;">Por favor complete todos los campos</p><br><br>
+            <!-- Enlace para registrarse si el usuario no tiene una cuenta -->
+            <p>¿No tienes una cuenta? <a href="register.html">Registrarse  <i class="fas fa-user-plus"></i></a></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para validar el formulario antes de enviarlo
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                // Muestra el mensaje de error si algún campo está vacío
+                document.getElementById("error-message").style.display = "block";
+                return false; // Evita que se envíe el formulario si algún campo está vacío
+            } else {
+                return true; // Envía el formulario si todos los campos están completos
+            }
+        }
+    </script>
+</body>
+</html>

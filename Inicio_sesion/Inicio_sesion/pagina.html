@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imagen/icono-removebg-preview.png" type="images/x-icon">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="paginaP.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <a href="#">Inicio</a>
+        <a href="cargarDatos.html">Cargar Datos</a>
+        <a href="/logout" class="logout-link">Cerrar Sesión</a>
+    </div>
+
+    <!-- Encabezado principal -->
+    <div class="header">
+        <h1>ADMIN</h1>
+        <p id="welcome-message"></p>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+        <select id="search-type">
+            <option value="cedula">Cédula</option>
+            <option value="nombre">Nombre</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Buscar...">
+        <button id="search-button">Buscar</button>
+    </div>
+    
+    <div id="search-results"></div>
+    
+    <!-- Listado de todos los estudiantes -->
+    <div id="all-students">
+        <h2>Listado de Estudiantes</h2>
+        <table id="students-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Carrera</th>
+                    <th>Email</th>
+                    <th>Semestre</th>
+                    <th>Periodo</th>
+                    <th>Código de Matrícula</th>
+                    <th>Reporte</th>
+                    <th>Certificado</th>
+                </tr>
+            </thead>
+            <tbody id="students-list">
+                <!-- Aquí se llenarán los datos de los estudiantes -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ajustar la ruta del archivo JavaScript -->
+    <script src="general.js"></script>
+</body>
+</html>
